@@ -17,21 +17,38 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
 
     public static function form(Form $form): Form
     {
         return $form
+        ->schema([
+            Forms\Components\Section::make()
             ->schema([
-                //
-            ]);
+                // name
+                Forms\Components\TextInput::make('name')
+                ->label('Category Name')
+                ->placeholder('Category Name')
+                ->required(),
+                        
+                // name
+                Forms\Components\TextArea::make('description')
+                ->label('Description')
+                ->placeholder('Description')
+                ->rows(5)
+                ->required(),
+                
+            ])
+        ]);
+
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('description'),
             ])
             ->filters([
                 //
